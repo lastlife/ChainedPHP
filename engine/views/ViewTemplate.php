@@ -10,7 +10,7 @@
  */
 class ViewTemplate extends \Engine\Views\ViewBase {
     public function __construct($params) {
-        $this->params = $params;
+        parent::__construct($params);
     }
     public function run() {
         if (isset($this->params['template_engine']) && strlen($this->params['template_engine']) > 0) {

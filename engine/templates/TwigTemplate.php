@@ -21,8 +21,8 @@ class TwigTemplate extends \Engine\Templates\TemplateBase {
     /**
      * @param array $params
      */
-    function __construct($params) {
-        $this->params = $params;
+    public function __construct($params) {
+        parent::__construct($params);
         require_once dirname(__FILE__).'/../lib/Twig/Autoloader.php';
         \Twig_Autoloader::register();
     }

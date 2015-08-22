@@ -10,7 +10,7 @@
  */
 class ViewJson extends \Engine\Views\ViewBase {
     public function __construct($params) {
-        $this->params = $params;
+        parent::__construct($params);
     }
     public function run() {
         echo json_encode($this->params);
