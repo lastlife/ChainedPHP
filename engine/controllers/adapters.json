@@ -1,0 +1,10 @@
+[
+    {
+        "moduleName": "formatUserData",
+        "moduleLevel": 100
+    },
+    {
+        "moduleName": "formatImages",
+        "moduleLevel": 110
+    }
+]
