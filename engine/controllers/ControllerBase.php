@@ -81,6 +81,10 @@ abstract class ControllerBase {
         $this->view->run();
     }
 
+    /**
+     * Runs $index param children or all if none is passed.
+     * @param int $index
+     */
     public function runChildren($index = -1) {
         if (count($this->children) > 0) {
             if ($index > -1) {

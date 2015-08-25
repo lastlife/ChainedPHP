@@ -5,10 +5,13 @@
  * Time: 3:35
  */
 
+namespace Engine\Views;
+
 /**
  * Class ViewJson
+ * @package Engine\Views
  */
-class ViewJson extends \Engine\Views\ViewBase {
+class ViewJson extends ViewBase {
     public function __construct($params) {
         parent::__construct($params);
     }

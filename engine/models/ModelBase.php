@@ -1,17 +1,17 @@
 <?php
 /**
  * User: Paul
- * Date: 2/06/14
- * Time: 23:40
+ * Date: 24/08/2015
+ * Time: 17:39
  */
 
-namespace Engine\Views;
+namespace Engine\Models;
 
 /**
- * Class ViewBase
- * @package Engine\Views
+ * Class ModelBase
+ * @package Engine\Models
  */
-abstract class ViewBase {
+abstract class ModelBase {
     /**
      * @var array
      */

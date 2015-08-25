@@ -5,11 +5,18 @@
  * Time: 19:01
  */
 
+namespace Engine\Models;
+
 /**
  * Class ModelDirect
+ * @package Engine\Models
  */
-class ModelDirect implements \Engine\Models\IModel {
-    function __construct($params, $input_format) {
+class ModelDirect extends ModelBase {
+    public function __construct($params) {
+        parent::__construct($params);
+    }
 
+    public function run() {
+        return $this->params;
     }
 }

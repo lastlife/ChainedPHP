@@ -5,21 +5,24 @@
  * Time: 18:24
  */
 
+namespace Engine\Templates;
+
 /**
  * Class TwigTemplate
+ * @package Engine\Templates
  */
-class TwigTemplate extends \Engine\Templates\TemplateBase {
+class TwigTemplate extends TemplateBase {
     /**
-     * @var Twig_Loader_Filesystem
+     * @var \Twig_Loader_Filesystem
      */
     private $loader;
     /**
-     * @var Twig_Environment
+     * @var \Twig_Environment
      */
     private $twig;
 
     /**
-     * @param array $params
+     * @param $params array
      */
     public function __construct($params) {
         parent::__construct($params);
@@ -28,7 +31,7 @@ class TwigTemplate extends \Engine\Templates\TemplateBase {
     }
 
     /**
-     * @param $template_dir
+     * @param $template_dir string
      */
     public function setTemplateDir($template_dir) {
         $this->loader = new \Twig_Loader_Filesystem(dirname(__FILE__)."/../../templates/$template_dir");

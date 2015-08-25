@@ -8,14 +8,14 @@
 namespace Engine\Errors;
 
 /**
- * Class BaseErrors
+ * Class ErrorBase
  * @package Engine\Errors
  */
-class BaseErrors {
+abstract class ErrorBase {
     /**
      * @var \Exception[]
      */
-    public $list;
+    protected $list;
 
     public function __construct() {
         $this->list = array();

@@ -5,10 +5,13 @@
  * Time: 3:35
  */
 
+namespace Engine\Views;
+
 /**
  * Class ViewDirect
+ * @package Engine\Views
  */
-class ViewDirect extends \Engine\Views\ViewBase {
+class ViewDirect extends ViewBase {
     public function __construct($params) {
         parent::__construct($params);
     }

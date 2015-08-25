@@ -5,11 +5,22 @@
  * Time: 1:10
  */
 
+/**
+ * @param $error_num int
+ * @param $error_msg string
+ * @param $error_file string
+ * @param $error_line int
+ * @throws ErrorException
+ */
 function ErrorHandler($error_num, $error_msg, $error_file, $error_line) {
     throw new ErrorException($error_msg, 0, $error_num, $error_file, $error_line);
 }
 set_error_handler('ErrorHandler');
 
+/**
+ * @param Exception $exception
+ * @return bool
+ */
 function ExceptionHandler(Exception $exception) {
     try {
         echo '<p>There was an error (code <strong>'.$exception->getCode().'</strong>) on file <strong>'.$exception->getFile().'</strong>, line <em>'.
