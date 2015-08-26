@@ -12,16 +12,20 @@ namespace Engine\Views;
  * @package Engine\Views
  */
 class ViewTemplate extends ViewBase {
+    /**
+     * @param array $params
+     */
     public function __construct($params) {
         parent::__construct($params);
     }
+
     public function run() {
         if (isset($this->params['template_engine']) && strlen($this->params['template_engine']) > 0) {
             $template_engine_class = array_map('ucfirst', explode('_', $this->params['template_engine']));
-            $template_engine_class = implode('', $template_engine_class).'Template';
+            $template_engine_class = '\Engine\Templates\\'.implode('', $template_engine_class).'Template';
         } else {
             $template_engine_class = array_map('ucfirst', explode('_', $GLOBALS['template_engine']));
-            $template_engine_class = implode('', $template_engine_class).'Template';
+            $template_engine_class = '\Engine\Templates\\'.implode('', $template_engine_class).'Template';
         }
         $template_engine = new $template_engine_class($this->params['template_params']);
         $template_engine->run();

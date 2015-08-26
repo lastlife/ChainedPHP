@@ -45,8 +45,8 @@ function __autoload($class_name) {
     /**
      * Check Apps controllers
      */
-    if (isset($GLOBALS['app_name']) && file_exists(dirname(__FILE__)."/../apps/".$GLOBALS['app_name']."/controllers/$class_name.php")) {
-        require_once(dirname(__FILE__)."/../apps/".$GLOBALS['app_name']."/controllers/$class_name.php");
+    if (isset($GLOBALS['init_app_name']) && file_exists(dirname(__FILE__)."/../apps/".$GLOBALS['init_app_name']."/controllers/$class_name.php")) {
+        require_once(dirname(__FILE__)."/../apps/".$GLOBALS['init_app_name']."/controllers/$class_name.php");
         $autoloaded = true;
     }
 
