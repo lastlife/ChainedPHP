@@ -26,8 +26,6 @@ class TwigTemplate extends TemplateBase {
      */
     public function __construct($params) {
         parent::__construct($params);
-        require_once dirname(__FILE__).'/../lib/Twig/Autoloader.php';
-        \Twig_Autoloader::register();
     }
 
     /**

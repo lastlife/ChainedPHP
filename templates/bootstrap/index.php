@@ -24,5 +24,7 @@ $input_format = 'direct';
 $output_format = 'template';
 $children_controllers = array();
 
-$ControllerIndex = new \Apps\Basic\Controllers\ControllerIndex($params, $input_format, $output_format, $children_controllers);
+$controller = "\\Apps\\".ucfirst($GLOBALS['init_app_name'])."\\Controllers\\ControllerIndex";
+
+$ControllerIndex = new $controller($params, $input_format, $output_format, $children_controllers);
 $ControllerIndex->run();
