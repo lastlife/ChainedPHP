@@ -5,26 +5,12 @@
  * Time: 17:59
  */
 
-$params = array(
-    'model_params' => array(
-        'title' => 'Prueba Twig',
-        'header_title' => 'Suppa Powa MCV',
-        'body' => 'Stuff!'
-    ),
-    'view_params' => array(
-        'template_engine' => 'twig',
-        'template_params' => array(
-            'template_dir' => $GLOBALS['template_name'],
-            'template_file' => 'index.twig',
-            'params' => array()
-        )
-    )
-);
-$input_format = 'direct';
-$output_format = 'template';
-$children_controllers = array();
+require_once dirname(dirname(__DIR__)).'/apps/basic/directors/DirectorIndex.php';
+require_once dirname(dirname(__DIR__)).'/apps/basic/directors/DirectorJson.php';
+require_once dirname(dirname(__DIR__)).'/apps/basic/controllers/ControllerIndex.php';
+require_once dirname(dirname(__DIR__)).'/apps/basic/controllers/ControllerJson.php';
+require_once dirname(dirname(__DIR__)).'/apps/basic/models/ModelBook.php';
+require_once dirname(dirname(__DIR__)).'/apps/basic/models/ModelJsonBook.php';
 
-$controller = "\\Apps\\".ucfirst($GLOBALS['init_app_name'])."\\Controllers\\ControllerIndex";
-
-$ControllerIndex = new $controller($params, $input_format, $output_format, $children_controllers);
-$ControllerIndex->run();
+$DirectorIndex = new \Apps\Basic\Directors\DirectorIndex($_REQUEST);
+$DirectorIndex->getIndex();

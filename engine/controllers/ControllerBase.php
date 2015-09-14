@@ -7,101 +7,48 @@
 
 namespace Engine\Controllers;
 
+use Engine\Models\ModelBase;
+use Engine\Views\ViewBase;
+
 /**
- * Class ControllerBase
+ * Class ControllerBase used to extend other Controllers.
+ *
+ * The main function of the Controller is to receive the user's petition, update the Model in consequence and, then,
+ * pass the updated data to the View (traditional MVC rarely leave this job to the Controller, but it give us a
+ * good control overall and makes testing easier).
  * @package Engine\Controllers
  */
 abstract class ControllerBase {
     /**
-     * @var object
+     * @var bool It tells the Controller that it needs to return whatever the View renders.
+     * It's usually needed for the Director class, since, sometimes, it needs to do things with it.
      */
+    protected $returnableView;
+    /** @var ModelBase The Model being used. */
     protected $model;
-    /**
-     * @var object
-     */
+    /** @var ViewBase The View being used. */
     protected $view;
-    /**
-     * @var array
-     */
-    protected $params;
-    /**
-     * @var string
-     */
-    protected $input_format;
-    /**
-     * @var string
-     */
-    protected $output_format;
-    /**
-     * @var array
-     */
-    protected $children;
+    /** @var array User's request. */
+    protected $request;
 
     /**
-     * @param array $params
-     * @param string $input_format
-     * @param string $output_format
-     * @param array $children_controllers
+     * @param array $request
+     * @param ModelBase $model
+     * @param ViewBase $view
+     * @param bool $returnableView
      */
-    public function __construct($params, $input_format, $output_format, $children_controllers = array()) {
-        $this->params = $params;
-        $this->input_format = $input_format;
-        $this->output_format = $output_format;
-        /**
-         * $children_controllers format:
-         * array(
-         *   'class_name',
-         *   'params',
-         *   'input_format',
-         *   'output_format',
-         *   'children_controllers'
-         * )
-         */
-        $this->children = $children_controllers;
+    public function __construct($request, ModelBase $model, ViewBase $view, $returnableView = false) {
+        $this->request = $request;
+        $this->model = $model;
+        $this->view = $view;
+        $this->returnableView = $returnableView;
     }
 
     /**
-     * Runs the controller and any possible children.
-     * Children run before the view.
+     * It sets parameters for the Controller.
+     * @param array $request
      */
-    public function run() {
-        $model_class = array_map('ucfirst', explode('_', $this->input_format));
-        $model_class = '\Engine\Models\Model'.implode('', $model_class);
-        $this->model = new $model_class($this->params['model_params']);
-        $this->params['model'] = $this->model->run();
-
-        // Usually, do something here
-        // Call any possible children
-        $this->runChildren();
-
-        $view_class = array_map('ucfirst', explode('_', $this->output_format));
-        $view_class = '\Engine\Views\View'.implode('', $view_class);
-        $this->view = new $view_class($this->params['view_params']);
-        $this->view->run();
-    }
-
-    /**
-     * Runs $index param children or all if none is passed.
-     * @param int $index
-     */
-    public function runChildren($index = -1) {
-        if (count($this->children) > 0) {
-            if ($index > -1) {
-                if (isset($this->children[$index])) {
-                    $child = $this->children[$index];
-                    $controller_class = array_map('ucfirst', explode('_', $child['class_name']));
-                    $controller_class = 'Controller'.implode('', $controller_class);
-                    $controller = new $controller_class($child['params'], $child['input_format'], $child['output_format'], $child['children_controllers']);
-                    $controller->run();
-                }
-            } else {
-                foreach ($this->children as $child) {
-                    $controller_class = array_map('ucfirst', explode('_', $child['class_name']));
-                    $controller_class = 'Controller'.implode('', $controller_class);
-                    $controller = new $controller_class($child['params'], $child['input_format'], $child['output_format'], $child['children_controllers']);
-                    $controller->run();
-                }
-            }
-        }
+    public function setRequest($request = array()) {
+        $this->request = $request;
     }
 }

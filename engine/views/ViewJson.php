@@ -8,14 +8,18 @@
 namespace Engine\Views;
 
 /**
- * Class ViewJson
+ * Returns/outputs a JSON formated object/array.
  * @package Engine\Views
  */
 class ViewJson extends ViewBase {
-    public function __construct($params) {
-        parent::__construct($params);
+    public function __construct($params = array(), $returnableView = false) {
+        parent::__construct($params, $returnableView);
     }
     public function run() {
-        echo json_encode($this->params);
+        if ($this->returnableView) {
+            return json_encode($this->params);
+        } else {
+            echo json_encode($this->params);
+        }
     }
 }

@@ -11,12 +11,12 @@ namespace Engine\Models;
  * Dummy class that returns whatever it's passed to it.
  * @package Engine\Models
  */
-class ModelDirect extends ModelBase {
+class ModelJson extends ModelBase {
     public function __construct($params) {
         parent::__construct($params);
     }
 
     public function run() {
-        return $this->params;
+        return json_decode($this->params);
     }
 }

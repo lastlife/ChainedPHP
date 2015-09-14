@@ -21,12 +21,10 @@ if (isset($template_name)) {
     throw new Exception('No Template Folder configured.');
 }
 
-if (isset($init_app_name)) {
-    $GLOBALS['init_app_name'] = $init_app_name;
-} else {
-    throw new Exception('No Initial App configured.');
-}
-
 require_once dirname(__FILE__).'/vendor/autoload.php';
 
-include_once dirname(__FILE__).'/templates/'.$GLOBALS['template_name'].'/index.php';
+if (file_exists(dirname(__FILE__).'/templates/'.$GLOBALS['template_name'].'/'.$_GET['page'].'.php')) {
+    include_once dirname(__FILE__).'/templates/'.$GLOBALS['template_name'].'/'.$_GET['page'].'.php';
+} else {
+    include_once dirname(__FILE__).'/templates/'.$GLOBALS['template_name'].'/index.php';
+}

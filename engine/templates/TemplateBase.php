@@ -12,13 +12,11 @@ namespace Engine\Templates;
  * @package Engine\Templates
  */
 abstract class TemplateBase {
-    /**
-     * @var array
-     */
+    /** @var bool */
+    protected $returnableTemplate = false;
+    /** @var array */
     protected $params;
-    /**
-     * @var array
-     */
+    /** @var string */
     protected $result;
 
     /**
@@ -28,7 +26,28 @@ abstract class TemplateBase {
         $this->params = $params;
     }
 
+    /**
+     * @param array $params
+     */
+    public function setParams($params = array()) {
+        $this->params = $params;
+    }
+
+    /**
+     * @param bool|false $returnableTemplate
+     */
+    public function setReturnableTemplate($returnableTemplate = false) {
+        $this->returnableTemplate = $returnableTemplate;
+    }
+
+    /**
+     * @return string|void
+     */
     public function run() {
-        echo $this->result;
+        if ($this->returnableTemplate) {
+            return $this->result;
+        } else {
+            echo $this->result;
+        }
     }
 }

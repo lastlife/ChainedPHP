@@ -19,20 +19,21 @@
   "require": {
     "php": ">=5.3.3",
     "morris/lessql": "~0.3",
-    "twig/twig": "~1.0",
-    "yeriomin/redbean-single-file": "~4.2"
+    "twig/twig": "~1.22",
+    "yeriomin/redbean-single-file": "~4.2",
+    "klein/klein": "v2.1.0"
   },
   "require-dev": {
     "phpunit/phpunit": "4.8.*"
   },
   "autoload": {
     "psr-4": {
+      "Engine\\Directors\\": "engine/directors",
       "Engine\\Models\\": "engine/models",
       "Engine\\Controllers\\": "engine/controllers",
       "Engine\\Views\\": "engine/views",
       "Engine\\Templates\\": "engine/templates",
-      "Engine\\Errors\\": "engine/errors",
-      "Apps\\Basic\\Controllers\\": "apps/basic/controllers"
+      "Engine\\Errors\\": "engine/errors"
     }
   },
   "minimum-stability": "stable",

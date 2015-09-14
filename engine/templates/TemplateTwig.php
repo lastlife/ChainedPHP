@@ -8,10 +8,10 @@
 namespace Engine\Templates;
 
 /**
- * Class TwigTemplate
+ * Class TemplateTwig
  * @package Engine\Templates
  */
-class TwigTemplate extends TemplateBase {
+class TemplateTwig extends TemplateBase {
     /**
      * @var \Twig_Loader_Filesystem
      */
@@ -33,8 +33,11 @@ class TwigTemplate extends TemplateBase {
      */
     public function setTemplateDir($template_dir) {
         $this->loader = new \Twig_Loader_Filesystem(dirname(__FILE__)."/../../templates/$template_dir");
-        $this->twig = new \Twig_Environment($this->loader, array(
+        /*$this->twig = new \Twig_Environment($this->loader, array(
             'cache' => dirname(__FILE__)."/../../templates/$template_dir/cache"
+        ));*/
+        $this->twig = new \Twig_Environment($this->loader, array(
+            'cache' => false
         ));
     }
 
@@ -47,10 +50,29 @@ class TwigTemplate extends TemplateBase {
     }
 
     /**
-     * Runs, and echoes, the template after generating the data.
+     * @param array $template_params
+     */
+    public function setParams($template_params = array()) {
+        $this->params['params'] = $template_params;
+    }
+
+    /**
+     * @param bool|false $returnableTemplate
+     */
+    public function setReturnableTemplate($returnableTemplate = false) {
+        $this->returnableTemplate = $returnableTemplate;
+    }
+
+    /**
+     * Runs, and echoes if needed, the template after generating the data.
+     * @return string
      */
     public function run() {
         $this->generate();
-        echo $this->result;
+        if ($this->returnableTemplate) {
+            return $this->result;
+        } else {
+            echo $this->result;
+        }
     }
 }

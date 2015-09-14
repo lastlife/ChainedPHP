@@ -7,27 +7,46 @@
 
 namespace Engine\Views;
 
+use Engine\Templates\TemplateBase;
+
 /**
  * Class ViewTemplate
  * @package Engine\Views
  */
 class ViewTemplate extends ViewBase {
+    /** @var TemplateBase */
+    private $template_engine;
+
+    /**
+     * @param array $params
+     * @param TemplateBase $template_engine
+     * @param bool $returnableView
+     */
+    public function __construct($params, TemplateBase $template_engine, $returnableView = false) {
+        parent::__construct($params, $returnableView);
+        $this->template_engine = $template_engine;
+        $this->template_engine->setReturnableTemplate($returnableView);
+    }
+
     /**
      * @param array $params
      */
-    public function __construct($params) {
-        parent::__construct($params);
+    public function setParams($params = array()) {
+        $this->params = $params;
+    }
+
+    /**
+     * @param array $template_params
+     */
+    public function setTemplateParams($template_params = array()) {
+        $this->template_engine->setParams($template_params);
     }
 
     public function run() {
-        if (isset($this->params['template_engine']) && strlen($this->params['template_engine']) > 0) {
-            $template_engine_class = array_map('ucfirst', explode('_', $this->params['template_engine']));
-            $template_engine_class = '\Engine\Templates\\'.implode('', $template_engine_class).'Template';
+        if ($this->returnableView) {
+            return $this->template_engine->run();
         } else {
-            $template_engine_class = array_map('ucfirst', explode('_', $GLOBALS['template_engine']));
-            $template_engine_class = '\Engine\Templates\\'.implode('', $template_engine_class).'Template';
+            $this->template_engine->run();
         }
-        $template_engine = new $template_engine_class($this->params['template_params']);
-        $template_engine->run();
     }
 }

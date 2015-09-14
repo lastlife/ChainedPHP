@@ -9,15 +9,15 @@ namespace Apps\Basic\Controllers;
 
 use Engine\Controllers\ControllerBase;
 use Engine\Models\ModelBase;
-use Apps\Basic\Models\ModelJsonBook;
 use Engine\Views\ViewBase;
-use Engine\Views\ViewTemplate;
+use Apps\Basic\Models\ModelBook;
+use Engine\Views\ViewJson;
 
 /**
- * Class ControllerIndex
+ * Class ControllerJson
  * @package Apps\Basic\Controllers
  */
-class ControllerIndex extends ControllerBase {
+class ControllerJson extends ControllerBase {
     public function __construct($request, ModelBase $model, ViewBase $view, $returnableView = false) {
         parent::__construct($request, $model, $view, $returnableView);
     }
@@ -26,18 +26,13 @@ class ControllerIndex extends ControllerBase {
      * @return mixed
      */
     public function getBookList() {
-        /** @var ModelJsonBook $model */
+        /** @var ModelBook $model */
         $model = &$this->model;
-        /** @var ViewTemplate $view */
+        /** @var ViewJson $view */
         $view = &$this->view;
 
-        $model_data = array(
-            'title' => 'Directed MVC',
-            'header_title' => 'Book List'
-        );
-
-        $model_data['books'] = $model->getBookList();
-        $view->setTemplateParams($model_data);
+        $model_data = $model->getBookList();
+        $view->setParams($model_data);
 
         if ($this->returnableView) {
             return $view->run();
@@ -47,18 +42,13 @@ class ControllerIndex extends ControllerBase {
     }
 
     public function getBook($id) {
-        /** @var ModelJsonBook $model */
+        /** @var ModelBook $model */
         $model = &$this->model;
-        /** @var ViewTemplate $view */
+        /** @var ViewJson $view */
         $view = &$this->view;
 
-        $model_data = array(
-            'title' => 'Directed MVC',
-            'header_title' => 'Book List'
-        );
-
-        $model_data['books'] = $model->getBook($id);
-        $view->setTemplateParams($model_data);
+        $model_data = $model->getBook($id);
+        $view->setParams($model_data);
 
         if ($this->returnableView) {
             return $view->run();
